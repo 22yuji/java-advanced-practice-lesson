@@ -3,7 +3,32 @@
   pageEncoding="UTF-8"%>
 <%
   //必要な処理を記述してください。
-
+  
+  String ID = request.getParameter("userId");
+  String Name = request.getParameter("userName");
+  String ageee = request.getParameter("age");
+  int age = Integer.parseInt(ageee);
+  
+  
+  
+  User[] users = (User[])session.getAttribute("users[]");
+  
+  if (users == null) {
+	users = new User[5];
+  }
+  
+  String result = "これ以上ユーザーを登録できません";
+  
+  for (int count = 0; count < users.length; count++) {
+	if (users[count] == null) {
+		
+		users[count] = new User(ID, Name, age);
+		result = "ユーザーを登録しました";
+        break;
+    }
+  }
+  
+  session.setAttribute("users[]", users);
 %>
 <!DOCTYPE html>
 <html>
@@ -54,7 +79,7 @@ a.button {
                 // todo:
                 // 現在は変数のみ定義している。
                 // Userクラスの情報取得用メソッドを呼んだ値をセットするように修正。
-                String msg = "";
+                String msg = tempUser.returnUserInfo();
 
                 // ユーザー情報表示
                 out.println(msg);
