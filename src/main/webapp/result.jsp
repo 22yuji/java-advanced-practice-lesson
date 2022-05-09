@@ -9,8 +9,6 @@
   String ageee = request.getParameter("age");
   int age = Integer.parseInt(ageee);
   
-  
-  
   User[] users = (User[])session.getAttribute("users[]");
   
   if (users == null) {
