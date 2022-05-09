@@ -3,10 +3,13 @@
   <%@ page import="app.GameApp"%>
  --%>
 
-<%@page import="app.GameApp"%>
+<%--@page import="app.GameApp"--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
   pageEncoding="UTF-8"%>
-<%
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<% request.setCharacterEncoding("UTF-8"); %>
+<%--
     request.setCharacterEncoding("UTF-8");
     String name = request.getParameter("name");
 
@@ -19,7 +22,7 @@
     	// 戻り値をresultに代入してください。
     	result = gameapp.start(name);
     }
-%>
+--%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,12 +48,14 @@ body {
 
   <h2>ゲームアプリ実行ページ</h2>
 
-  <div class="result">
-    <h3>アプリの実行結果</h3>
-    <p><%=result%></p>
-  </div>
-
-  <form action="appStart.jsp" method="post">
+  <c:if test="${not empty result}">
+  	<div class="result">
+    	<h3>アプリの実行結果</h3>
+    	<p>${requestScope.result}</p>
+    </div>
+  </c:if>
+  
+  <form action="StartAppServlet" method="post">
     <label>ユーザ名：</label>
     <input type="text" name="name">
     <br>
