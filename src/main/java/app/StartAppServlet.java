@@ -30,14 +30,27 @@ public class StartAppServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//request.setCharacterEncoding("UTF-8");
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
 		
 		String name = request.getParameter("name");
+		String app = request.getParameter("app");
 	    
-	    GameApp gameapp = new GameApp();
-
-	    if (name != null && !name.isEmpty()) {
+		if(app.equals("trump")) {
+			CardGameApp gameapp = new CardGameApp(app);
+			
+			if (name != null && !name.isEmpty()) {
+		    	request.setAttribute("result", gameapp.start(name));
+		    }
+		}else {
+			GameApp gameapp = new GameApp();
+			
+			if (name != null && !name.isEmpty()) {
+		    	request.setAttribute("result", gameapp.start(name));
+		    }
+		}
+	    /*if (name != null && !name.isEmpty()) {
 	    	request.setAttribute("result", gameapp.start(name));
-	    }
+	    }*/
 		
 		request.getRequestDispatcher("/appStart.jsp").forward(request, response);
 	}

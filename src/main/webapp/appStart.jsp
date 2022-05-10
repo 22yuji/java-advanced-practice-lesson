@@ -59,6 +59,10 @@ body {
     <label>ユーザ名：</label>
     <input type="text" name="name">
     <br>
+    <label>アプリ：</label>
+    <label><input type="radio" name="app" value="trump" checked>トランプ</label>
+    <label><input type="radio" name="app" value="game">ゲーム</label>
+    <br>
     <button type="submit">実行</button>
   </form>
 </body>
