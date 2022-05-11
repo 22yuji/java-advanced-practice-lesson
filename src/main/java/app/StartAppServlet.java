@@ -34,20 +34,22 @@ public class StartAppServlet extends HttpServlet {
 		
 		String name = request.getParameter("name");
 		String app = request.getParameter("app");
-	    
-		if(app.equals("trump")) {
-			CardGameApp gameapp = new CardGameApp(app);
-			
-			if (name != null && !name.isEmpty()) {
-		    	request.setAttribute("result", gameapp.start(name));
-		    }
-		}else {
-			GameApp gameapp = new GameApp();
-			
-			if (name != null && !name.isEmpty()) {
-		    	request.setAttribute("result", gameapp.start(name));
-		    }
+		
+		if (name != null && !name.isEmpty()) {
+			if(app.equals("trump")) {
+				GameApp gameapp = new CardGameApp(app);
+			    request.setAttribute("result", gameapp.start(name));
+			}else if(app.equals("darts")){
+				GameApp gameapp = new DartsGameApp(app);
+				request.setAttribute("result", gameapp.start(name));
+			}else if(app.equals("clock")) {
+				ClockApp clockapp = new ClockApp();
+				request.setAttribute("result", clockapp.start(name));
+			}
 		}
+		
+	    
+		
 	    /*if (name != null && !name.isEmpty()) {
 	    	request.setAttribute("result", gameapp.start(name));
 	    }*/
