@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class StartAppServlet
  */
-@WebServlet("/inputServlet")
+@WebServlet("/InputServlet")
 public class InputServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -40,8 +40,32 @@ public class InputServlet extends HttpServlet {
             throws ServletException, IOException {
         
     	// ここに必要な処理を記述してください。
-
-
+    	request.setCharacterEncoding("UTF-8");
+    	String name = request.getParameter("name");
+    	String language = request.getParameter("language");
+    	String bPlace = request.getParameter("birthPlace");
+    	
+    	String rhInfo;
+    	String rbInfo;
+    	
+    	if(request.getParameter("btn").equals("simple")) {
+    		switch(request.getParameter("bPlace")) {
+    			case "japan":
+    				Japanese jp = new Japanese();
+    				rhInfo = jp.returnHumanInfo();
+    				rbInfo = jp.returnBirthPlaceInfo();
+    			    request.setAttribute("info", rhInfo + rbInfo);
+    				break;
+    			case "america":
+    				American am = new American();
+    				break;
+    			default:
+    				Human hm = new Human();
+    				break;
+    		}
+    		
+    	}
+    	
         // 結果画面へ
         request.getRequestDispatcher("result.jsp").forward(request, response);
     }
