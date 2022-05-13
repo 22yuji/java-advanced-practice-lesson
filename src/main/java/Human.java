@@ -21,15 +21,16 @@ public class Human {
      */
     public Human(String name, String language) {
         // フィールドを初期化
-        this();
+        this.name = name;
+        this.language = language;
 
-        if (!Utility.isNullOrEmpty(name)) {
+        /*if (!Utility.isNullOrEmpty(name)) {
             this.name = name;
         }
 
         if (!Utility.isNullOrEmpty(language)) {
             this.language = language;
-        }
+        }*/
     }
 
     /**
