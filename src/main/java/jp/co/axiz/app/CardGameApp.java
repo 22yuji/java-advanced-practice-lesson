@@ -1,4 +1,4 @@
-package app;
+package jp.co.axiz.app;
 
 public class CardGameApp extends GameApp{
 	
@@ -7,11 +7,12 @@ public class CardGameApp extends GameApp{
 	}
 	
 	public CardGameApp(String item) {
-		super("トランプ");
+		super.setItem(item);
+		super.setPlayTime(5);
 	}
 	
 	@Override
-	public String play() {
+	protected String play() {
 		String str = "ババ抜きをします。";
 		return str;
 		

@@ -53,6 +53,8 @@
 		  	<div class="result">
 		    	<h3>アプリの実行結果</h3>
 		    	<p>${requestScope.result}</p>
+		    	<br>
+		    	<p>実行時間：${requestScope.playtime}</p>
 		    </div>
 	 	</c:if>
 	  

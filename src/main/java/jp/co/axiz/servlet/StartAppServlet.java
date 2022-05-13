@@ -1,4 +1,4 @@
-package app;
+package jp.co.axiz.servlet;
 
 import java.io.IOException;
 
@@ -7,6 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import jp.co.axiz.app.App;
+import jp.co.axiz.app.CardGameApp;
+import jp.co.axiz.app.ClockApp;
+import jp.co.axiz.app.DartsGameApp;
+import jp.co.axiz.app.GameApp;
 
 /**
  * Servlet implementation class StartAppServlet
@@ -33,26 +39,29 @@ public class StartAppServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String name = request.getParameter("name");
-		String app = request.getParameter("app");
+		String appli = request.getParameter("app");
 		
-		if (name != null && !name.isEmpty()) {
-			if(app.equals("trump")) {
-				GameApp gameapp = new CardGameApp(app);
-			    request.setAttribute("result", gameapp.start(name));
-			}else if(app.equals("darts")){
-				GameApp gameapp = new DartsGameApp(app);
-				request.setAttribute("result", gameapp.start(name));
-			}else if(app.equals("clock")) {
-				ClockApp clockapp = new ClockApp();
-				request.setAttribute("result", clockapp.start(name));
-			}
+		App app = null;
+		
+		if (name == null || name.isEmpty()) {
+			request.getRequestDispatcher("appStart.jsp").forward(request, response);
+            return;
 		}
 		
-	    
+		if(appli.equals("trump")) {
+			app = new CardGameApp(appli);
+		}else if(appli.equals("darts")){
+			app = new DartsGameApp(appli);
+		}else if(appli.equals("clock")) {
+			app = new ClockApp();
+		}
 		
-	    /*if (name != null && !name.isEmpty()) {
-	    	request.setAttribute("result", gameapp.start(name));
-	    }*/
+		if(app instanceof GameApp) {
+			GameApp gameapp = (GameApp)app;
+			request.setAttribute("playtime", gameapp.getPlayTime());
+		}
+		
+		request.setAttribute("result", app.start(name));
 		
 		request.getRequestDispatcher("/appStart.jsp").forward(request, response);
 	}
